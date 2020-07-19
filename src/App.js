@@ -10,12 +10,11 @@ import {
   NavigationList,
   NavigationItem,
   NavigationButton,
-  ControlSection,
   ProductControls,
+  ControlsInner,
   ProductList,
   ProductItem,
   Main,
-  SortButton,
   ProductImage,
   ProductInfo,
   ProductName,
@@ -26,7 +25,10 @@ import {
 const App = () => {
 
   const [types, setTypes] = useState();
-  const [products, setProducts] = useState();
+  const [selectedType, setSelectedType] = useState();
+  const [products, setProducts] = useState({});
+  const [selectedProducts, setSelectedProducts] = useState();
+  const [gridType, setGridtype] = useState(1);
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -39,18 +41,33 @@ const App = () => {
     fetchTypes()
   }, []);
 
+  const selectType = (selected) => {
+    setSelectedType(selected);
+    if (!products[selected]) {
+      fetchProducts(selected)
+    } else {
+      setSelectedProducts(products[selected])
+    }
+  }
+
   const fetchProducts = async (selectedType) => {
     fetch(`https://sleepy-depths-24610.herokuapp.com/products/${selectedType}`)
       .then(response => response.json())
-      .then(jsonData => setProducts(jsonData))
+      .then(jsonData => {
+        setProducts({ ...products, [selectedType]: jsonData })
+        setSelectedProducts(jsonData)
+      })
       .catch(err => console.log(err))
   }
 
-  const sortArray = () => {
-    const sorted = [...products].sort((a, b) => b.price.value - a.price.value);
-    console.log(sorted);
-    setProducts(sorted);
+  const sortArray = (highToLow) => {
+    const sorted = highToLow ?
+      [...selectedProducts].sort((a, b) => a.price.value - b.price.value) :
+      [...selectedProducts].sort((a, b) => b.price.value - a.price.value);
+      setSelectedProducts(sorted);
   };
+
+  console.log(gridType)
 
   return (
     <div className="App">
@@ -61,36 +78,44 @@ const App = () => {
         {types ? <NavigationList>
           {types.map(type =>
             <NavigationItem key={type.name}>
-              <NavigationButton onClick={e => fetchProducts(type.name)}>{type.name}</NavigationButton>
+              <NavigationButton onClick={() => selectType(type.name)}>{type.name}</NavigationButton>
             </NavigationItem>)}
         </NavigationList> : null}
       </Navigation>
       <Main>
-        {products ?
+        {selectedProducts ?
           <div>
-            <ControlSection>
-              <SubTitle> product list</SubTitle>
-              <ProductControls>
-                <SortButton onClick={sortArray} disabled={!products}>sort by price</SortButton>
-                <SortButton onClick={sortArray} disabled={!products}>sort by price</SortButton>
-                <SortButton onClick={sortArray} disabled={!products}>sort by price</SortButton>
-                <SortButton onClick={sortArray} disabled={!products}>sort by price</SortButton>
-              </ProductControls>
-            </ControlSection>
-            <ProductList>
-              {products.map(product => <ProductItem key={product.id}>
-                <ProductImage></ProductImage>
-                <ProductInfo>
-                  <ProductName>{product.name}</ProductName>
-                  <ProductPrice>{product.price.value}{product.price.currency}</ProductPrice>
-                  <ProductDescription>{product.description}</ProductDescription>
-                </ProductInfo>
-              </ProductItem>)}
-            </ProductList>
+            <SubTitle>{selectedType}</SubTitle>
+            <ProductControls>
+              <ControlsInner>
+                <button className="control-button control-button--mobile-only" value={1} onClick={e => setGridtype(1)}>1</button>
+                <button className="control-button" value={2} onClick={e => setGridtype(2)}>2</button>
+                <button className="control-button control-button--desktop-only" value={2} onClick={e => setGridtype(3)}>3</button>
+              </ControlsInner>
+              <ControlsInner>
+                <button className="control-button" onClick={e => sortArray(false)}>high to low</button>
+                <button className="control-button" onClick={e => sortArray(true)}>low to high</button>
+              </ControlsInner>
+
+            </ProductControls>
+            <List items={selectedProducts} gridType={gridType}/>
           </div> : <SubTitle>select product type</SubTitle>}
       </Main>
     </div>
   );
 }
+
+const List = ({ items, gridType }) => (
+  <ProductList cols={gridType}>
+    {items.map(product => <ProductItem key={product.id}>
+      <ProductImage cols={gridType}></ProductImage>
+      <ProductInfo>
+        <ProductName>{product.name}</ProductName>
+        <ProductPrice>{product.price.value}{product.price.currency}</ProductPrice>
+        <ProductDescription>{product.description}</ProductDescription>
+      </ProductInfo>
+    </ProductItem>)}
+  </ProductList>
+)
 
 export default App;

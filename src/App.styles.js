@@ -34,7 +34,6 @@ export const Header = styled.header`
     height: 45px;
     background-color: ${Colors['white']};
 
-
     @media (min-width: 576px) {
         height: 65px;
     }
@@ -83,7 +82,6 @@ export const NavigationButton = styled.button`
     &:active {
         color: ${Colors['pastelpink']};
     }
-
 `;
 
 export const Main = styled.main`
@@ -106,79 +104,74 @@ export const SubTitle = styled.h2`
     text-transform: uppercase;
     letter-spacing: 2px;
     color: ${Colors['charcoal']};
-`
-
-export const SortButton = styled.button`
-    background-color: transparent;
-    border: 1px solid ${Colors['charcoal']};
-    font-size: 1em;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-`;
-
-export const ControlSection = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: ${gutterSizes['guttermd']};
-    height: 20vh;
 `;
 
 export const ProductControls = styled.div`
     display: grid;
-    height: 50%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-gap: 5px;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 10px;
+    margin: 10px auto;
+    padding: 0 15px;
+    max-width: 450px;
+`;
+
+export const ControlsInner = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `;
 
 export const ProductList = styled.ul`
     display: grid;
     padding: ${gutterSizes['guttermd']};
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(${props => props.cols} , 1fr);
     grid-gap: 20px;
 
     @media (min-width: 576px) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(calc(${props => props.cols} + 2), 1fr);
     }
-` 
+`;
 
 export const ProductItem = styled.li`
     height: 100%;
     list-style: none;
     background-color: ${Colors['white']};
-`
+`;
 
 export const ProductImage = styled.img`
-    height: 250px;
+    height: calc(250px / ${props => props.cols});
     width: 100%;
     background-color: ${Colors['grey']};
-`
+
+    @media (min-width: 576px) {
+        height: calc(250px / ${props => props.cols} + 50px);
+    }
+`;
 
 export const ProductInfo = styled.div`
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 5px;
+display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     padding: 10px;
-`
+`;
 
 export const ProductName = styled.h3`
     margin-bottom: 10px;
-    font-family: Overpass,sans-serif;
+    font-family: Overpass, sans-serif;
     font-size: ${fontSizes['md']};
     color: ${Colors['charcoal']};
     font-weight: 700;
     letter-spacing: 0;
     word-break: break-word;
-`
+`;
 
 export const ProductPrice = styled.span`
     color: ${Colors['hotpink']};
-`
+`;
 
 export const ProductDescription = styled.span`
-    font-family: Overpass,sans-serif;
+    font-family: Overpass, sans-serif;
     font-size: ${fontSizes['md']};
     color: ${Colors['charcoal']};
     font-weight: 300;
-`
+`;
