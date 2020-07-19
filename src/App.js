@@ -77,7 +77,7 @@ const App = () => {
             <NavigationItem key={type.name}>
               <NavigationButton onClick={() => selectType(type.name)}>{type.name}</NavigationButton>
             </NavigationItem>)}
-        </NavigationList> : null}
+        </NavigationList> : <span>loading</span>}
       </Navigation>
       <Main>
         {selectedProducts ?
