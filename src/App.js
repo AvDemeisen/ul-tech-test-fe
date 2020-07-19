@@ -23,7 +23,6 @@ import {
 } from "./App.styles"
 
 const App = () => {
-
   const [types, setTypes] = useState();
   const [selectedType, setSelectedType] = useState();
   const [products, setProducts] = useState({});
@@ -67,8 +66,6 @@ const App = () => {
       setSelectedProducts(sorted);
   };
 
-  console.log(gridType)
-
   return (
     <div className="App">
       <Header>
@@ -88,9 +85,9 @@ const App = () => {
             <SubTitle>{selectedType}</SubTitle>
             <ProductControls>
               <ControlsInner>
-                <button className="control-button control-button--mobile-only" value={1} onClick={e => setGridtype(1)}>1</button>
-                <button className="control-button" value={2} onClick={e => setGridtype(2)}>2</button>
-                <button className="control-button control-button--desktop-only" value={2} onClick={e => setGridtype(3)}>3</button>
+                <button className="control-button control-button--1 control-button--mobile-only" value={1} onClick={e => setGridtype(1)}></button>
+                <button className="control-button control-button--2" value={2} onClick={e => setGridtype(2)}></button>
+                <button className="control-button control-button--3 control-button--desktop-only" value={2} onClick={e => setGridtype(3)}></button>
               </ControlsInner>
               <ControlsInner>
                 <button className="control-button" onClick={e => sortArray(false)}>high to low</button>

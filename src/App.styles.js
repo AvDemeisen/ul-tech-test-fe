@@ -67,7 +67,7 @@ export const NavigationItem = styled.li`
 export const NavigationButton = styled.button`
     padding: ${gutterSizes['guttersm']};
     height: 100%;
-    border: 1px solid ${Colors['charcoal']};
+    border: 1.5px solid ${Colors['charcoal']};
     background-color: transparent;
     color: ${Colors['white']};
     font-size: ${fontSizes['sm']};
@@ -75,12 +75,9 @@ export const NavigationButton = styled.button`
     letter-spacing: 2px;
     transform: 300ms ease all;
 
-    &:hover {
-        border: 1px solid ${Colors['white']};
-    }
-
-    &:active {
-        color: ${Colors['pastelpink']};
+    &:hover, &:active {
+        background-color: ${Colors['white']};
+        color: ${Colors['charcoal']};
     }
 `;
 
