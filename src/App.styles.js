@@ -69,17 +69,21 @@ export const NavigationButton = styled.button`
     height: 100%;
     border: 1.5px solid ${Colors['charcoal']};
     background-color: transparent;
-    color: ${Colors['white']};
-    font-size: ${fontSizes['sm']};
-    text-transform: uppercase;
-    letter-spacing: 2px;
     transform: 300ms ease all;
 
     &:hover, &:active {
         background-color: ${Colors['white']};
         color: ${Colors['charcoal']};
+        transform: 300ms ease all;
     }
 `;
+
+export const NavigationSpan = styled.span`
+    color: ${Colors['white']};
+    font-size: ${fontSizes['sm']};
+    text-transform: uppercase;
+    letter-spacing: 2px;
+`
 
 export const Main = styled.main`
     height: calc(100vh - 80px);

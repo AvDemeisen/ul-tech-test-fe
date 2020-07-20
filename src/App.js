@@ -10,6 +10,7 @@ import {
   NavigationList,
   NavigationItem,
   NavigationButton,
+  NavigationSpan,
   ProductControls,
   ControlsInner,
   ProductList,
@@ -75,9 +76,11 @@ const App = () => {
         {types ? <NavigationList>
           {types.map(type =>
             <NavigationItem key={type.name}>
-              <NavigationButton onClick={() => selectType(type.name)}>{type.name}</NavigationButton>
+              <NavigationButton onClick={() => selectType(type.name)}>
+                <NavigationSpan>{type.name}</NavigationSpan>
+              </NavigationButton>
             </NavigationItem>)}
-        </NavigationList> : <span>loading</span>}
+        </NavigationList> : <NavigationSpan>loading</NavigationSpan>}
       </Navigation>
       <Main>
         {selectedProducts ?
