@@ -69,6 +69,10 @@ export const NavigationButton = styled.button`
     height: 100%;
     border: 1.5px solid ${Colors['charcoal']};
     background-color: transparent;
+    color: ${Colors['white']};
+    font-size: ${fontSizes['sm']};
+    text-transform: uppercase;
+    letter-spacing: 2px;
     transform: 300ms ease all;
 
     &:hover, &:active {

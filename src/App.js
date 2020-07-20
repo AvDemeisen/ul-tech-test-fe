@@ -77,7 +77,7 @@ const App = () => {
           {types.map(type =>
             <NavigationItem key={type.name}>
               <NavigationButton onClick={() => selectType(type.name)}>
-                <NavigationSpan>{type.name}</NavigationSpan>
+                {type.name}
               </NavigationButton>
             </NavigationItem>)}
         </NavigationList> : <NavigationSpan>loading</NavigationSpan>}
